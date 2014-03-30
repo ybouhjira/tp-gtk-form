@@ -17,6 +17,27 @@ GtkWidget *toolbar_create()
     return toolbar;
 }
 
+GtkWidget *notebook_create()
+{
+    GtkWidget *notebook = gtk_notebook_new();
+    gtk_notebook_set_show_tabs(GTK_NOTEBOOK(notebook), FALSE);
+    return notebook;
+}
+
+GtkWidget *create_welcome_page()
+{
+    GtkWidget *page = gtk_vbox_new(FALSE, 10);
+
+    // Ajout de boutons
+    GtkWidget *studiantButton = gtk_button_new_with_mnemonic("Etudiant");
+    GtkWidget *adminButton = gtk_button_new_with_mnemonic("Administrateur");
+
+    gtk_container_add(GTK_CONTAINER(page), studiantButton);
+    gtk_container_add(GTK_CONTAINER(page), adminButton);
+
+    return page;
+}
+
 int main( int argc, char *argv[])
 {
     gtk_init(&argc, &argv);
@@ -35,6 +56,14 @@ int main( int argc, char *argv[])
     // Ajouter un bouton acceuil
     GtkToolItem *home = gtk_tool_button_new_from_stock(GTK_STOCK_HOME);
     gtk_toolbar_insert(GTK_TOOLBAR(toolbar), home, -1);
+
+    // notebook
+    GtkWidget *notebook = notebook_create();
+    gtk_container_add(GTK_CONTAINER(windowBox), notebook);
+
+    GtkWidget *welcomePage = create_welcome_page();
+    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), welcomePage, NULL);
+
 
     // Connections des signaux
     g_signal_connect_swapped(G_OBJECT(window), "destroy",
