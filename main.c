@@ -10,13 +10,9 @@ void select_tab(GtkWidget *btn, void *data)
 
     GtkWidget *notebook = (GtkWidget*) data;
     if(strcmp(text, "Eudiant"))
-    {
         gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), 1);
-    }
     else
-    {
         gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), 0);
-    }
 }
 
 void go_home(GtkWidget *widget, void* data)
