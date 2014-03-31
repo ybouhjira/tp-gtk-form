@@ -20,7 +20,7 @@ GtkWidget *toolbar_create()
 GtkWidget *notebook_create()
 {
     GtkWidget *notebook = gtk_notebook_new();
-    gtk_notebook_set_show_tabs(GTK_NOTEBOOK(notebook), FALSE);
+    //gtk_notebook_set_show_tabs(GTK_NOTEBOOK(notebook), FALSE);
     return notebook;
 }
 
@@ -34,6 +34,58 @@ GtkWidget *create_welcome_page()
 
     gtk_container_add(GTK_CONTAINER(page), studiantButton);
     gtk_container_add(GTK_CONTAINER(page), adminButton);
+
+    return page;
+}
+
+#define attach(table, widget, left, right, top, bottom) \
+    gtk_table_attach(GTK_TABLE(table), widget, left, right, top, bottom, \
+     GTK_SHRINK, GTK_SHRINK, 5, 1)
+
+GtkWidget *create_form_page()
+{
+
+    GtkWidget *page = gtk_vbox_new(FALSE, 5);
+
+    // Informations personnelles
+    GtkWidget *infoFrame = gtk_frame_new("Informations personelles");
+    gtk_container_add(GTK_CONTAINER(page), infoFrame);
+    GtkWidget *infoFrameTable = gtk_table_new(4, 2, FALSE);
+    gtk_container_set_border_width (GTK_CONTAINER (infoFrameTable), 10);
+    gtk_container_add(GTK_CONTAINER(infoFrame), infoFrameTable);
+
+    GtkWidget *nom = gtk_entry_new();
+    GtkWidget *prenom = gtk_entry_new();
+    GtkWidget *cin = gtk_entry_new();
+    GtkWidget *cne = gtk_entry_new();
+
+    attach(infoFrameTable, gtk_label_new("Nom"), 0, 1, 0, 1);
+    attach(infoFrameTable, nom, 1, 2, 0, 1);
+    attach(infoFrameTable, gtk_label_new("Prénom"), 0, 1, 1, 2);
+    attach(infoFrameTable, prenom, 1, 2, 1, 2);
+    attach(infoFrameTable, gtk_label_new("CIN"), 0, 1, 2, 3);
+    attach(infoFrameTable, cin, 1, 2, 2, 3);
+    attach(infoFrameTable, gtk_label_new("CNE"), 0, 1, 3, 4);
+    attach(infoFrameTable, cne, 1, 2, 3, 4);
+
+    GtkWidget *notes[6];
+    int i;
+    for(i=0; i < 6; ++i) notes[i] = gtk_entry_new();
+
+    GtkWidget *diplome = gtk_combo_box_new_text();
+    gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), "DUT");
+    gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), "DEUG");
+    gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), "DEUST");
+    gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), "LICENCE");
+    gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), "MAITRISE");
+    gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), "MASTER");
+    gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), "CPGE");
+
+    GtkWidget *etab = gtk_entry_new();
+
+    GtkWidget *nombreAns = gtk_spinner_new();
+
+    GtkWidget *anDiplome = gtk_entry_new();
 
     return page;
 }
@@ -64,6 +116,8 @@ int main( int argc, char *argv[])
     GtkWidget *welcomePage = create_welcome_page();
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), welcomePage, NULL);
 
+    GtkWidget *formPage = create_form_page();
+    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), formPage, NULL);
 
     // Connections des signaux
     g_signal_connect_swapped(G_OBJECT(window), "destroy",
