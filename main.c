@@ -1,4 +1,7 @@
 #include <gtk/gtk.h>
+#include <string.h>
+
+#define NOMBRE_NOTES 8
 
 // Callbacks
 void select_tab(GtkWidget *btn, void *data)
@@ -54,9 +57,12 @@ GtkWidget *create_welcome_page(GtkWidget *notebook)
     // Ajout de boutons
     GtkWidget *studiantButton = gtk_button_new_with_mnemonic("Etudiant");
     GtkWidget *adminButton = gtk_button_new_with_mnemonic("Administrateur");
+    GtkWidget *resultButton = gtk_button_new_with_mnemonic("Resultat");
 
-    gtk_container_add(GTK_CONTAINER(page), studiantButton);
-    gtk_container_add(GTK_CONTAINER(page), adminButton);
+
+    gtk_box_pack_start(GTK_BOX(page), studiantButton, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(page), adminButton, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(page), resultButton, FALSE, FALSE, 5);
 
     g_signal_connect(G_OBJECT(studiantButton), "clicked",
                      G_CALLBACK(select_tab), notebook);
@@ -68,7 +74,7 @@ GtkWidget *create_welcome_page(GtkWidget *notebook)
     gtk_table_attach(GTK_TABLE(table), widget, left, right, top, bottom, \
      GTK_SHRINK, GTK_SHRINK, 5, 1)
 
-GtkWidget *create_form_page()
+GtkWidget *create_student_page()
 {
     GtkWidget *page = gtk_vbox_new(FALSE, 5);
 
@@ -104,38 +110,49 @@ GtkWidget *create_form_page()
     char *nomDiplomes[10] = {"DUT", "DEUG", "DEUST", "Licence", "Maitrise",
                           "Master", "CPGE"};
     int i;
-    for(i = 0; i < 6; ++i)
+    for(i = 0; i < 7; ++i)
         gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), nomDiplomes[i]);
     gtk_combo_box_set_active(GTK_COMBO_BOX(diplome), 0);
 
-    GtkWidget *notes[6];
-    for(i=0; i < 6; ++i) notes[i] = gtk_entry_new();
+
+    GtkWidget *notes[NOMBRE_NOTES];
+    for(i=0; i < NOMBRE_NOTES; ++i) notes[i] = gtk_entry_new();
 
     GtkWidget *etab = gtk_entry_new();
     GtkWidget *nombreAns = gtk_entry_new();
     GtkWidget *anDiplome = gtk_entry_new();
 
     attach(diplomeTable, gtk_label_new("Diplome"), 0, 1, 0, 1);
+
     attach(diplomeTable, gtk_label_new("Note 1"), 0, 1, 1, 2);
     attach(diplomeTable, gtk_label_new("Note 2"), 0, 1, 2, 3);
     attach(diplomeTable, gtk_label_new("Note 3"), 0, 1, 3, 4);
     attach(diplomeTable, gtk_label_new("Note 4"), 0, 1, 4, 5);
     attach(diplomeTable, gtk_label_new("Note 5"), 0, 1, 5, 6);
     attach(diplomeTable, gtk_label_new("Note 6"), 0, 1, 6, 7);
-    attach(diplomeTable, gtk_label_new("Etablissement"), 0, 1, 7, 8);
-    attach(diplomeTable, gtk_label_new("nomrbre d'années"), 0, 1, 8, 9);
-    attach(diplomeTable, gtk_label_new("Année d'obtention"), 0, 1, 9, 10);
+    attach(diplomeTable, gtk_label_new("Note 7"), 0, 1, 7, 8);
+    attach(diplomeTable, gtk_label_new("Note 8"), 0, 1, 8, 9);
+
+    attach(diplomeTable, gtk_label_new("Etablissement"), 0, 1, 9, 10);
+    attach(diplomeTable, gtk_label_new("nomrbre d'années"), 0, 1, 10, 11);
+    attach(diplomeTable, gtk_label_new("Année d'obtention"), 0, 1, 11, 12);
 
     attach(diplomeTable, diplome, 1, 2, 0, 1);
-    for(i = 0; i < 6; ++i)
+    for(i = 0; i < NOMBRE_NOTES; ++i)
         attach(diplomeTable, notes[i], 1, 2, 1 + i, 2 + i);
-    attach(diplomeTable, etab, 1, 2, 7, 8);
-    attach(diplomeTable, nombreAns, 1, 2, 8, 9);
-    attach(diplomeTable, anDiplome, 1, 2, 9, 10);
+    attach(diplomeTable, etab, 1, 2, 9, 10);
+    attach(diplomeTable, nombreAns, 1, 2, 10, 11);
+    attach(diplomeTable, anDiplome, 1, 2, 11, 12);
+
+    // Bouton OK
+    GtkWidget *ok = gtk_button_new_with_label("OK");
+    gtk_container_add(GTK_CONTAINER(page), ok);
+
 
     GtkWidget *scrollarea = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrollarea),
                                           page);
+
     return scrollarea;
 }
 
@@ -165,7 +182,7 @@ int main( int argc, char *argv[])
     GtkWidget *welcomePage = create_welcome_page(notebook);
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), welcomePage, NULL);
 
-    GtkWidget *formPage = create_form_page();
+    GtkWidget *formPage = create_student_page();
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), formPage, NULL);
 
     // Connections des signaux
