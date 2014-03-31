@@ -1,5 +1,28 @@
 #include <gtk/gtk.h>
 
+// Callbacks
+void select_tab(GtkWidget *btn, void *data)
+{
+    const char *text = gtk_button_get_label(GTK_BUTTON(btn));
+
+    GtkWidget *notebook = (GtkWidget*) data;
+    if(strcmp(text, "Eudiant"))
+    {
+        gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), 1);
+    }
+    else
+    {
+        gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), 0);
+    }
+}
+
+void go_home(GtkWidget *widget, void* data)
+{
+    GtkWidget *notebook = (GtkWidget*) data;
+    gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), 0);
+}
+// Fin des callbacks
+
 GtkWidget *create_window()
 {
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -20,11 +43,11 @@ GtkWidget *toolbar_create()
 GtkWidget *notebook_create()
 {
     GtkWidget *notebook = gtk_notebook_new();
-    //gtk_notebook_set_show_tabs(GTK_NOTEBOOK(notebook), FALSE);
+    gtk_notebook_set_show_tabs(GTK_NOTEBOOK(notebook), FALSE);
     return notebook;
 }
 
-GtkWidget *create_welcome_page()
+GtkWidget *create_welcome_page(GtkWidget *notebook)
 {
     GtkWidget *page = gtk_vbox_new(FALSE, 10);
 
@@ -35,6 +58,9 @@ GtkWidget *create_welcome_page()
     gtk_container_add(GTK_CONTAINER(page), studiantButton);
     gtk_container_add(GTK_CONTAINER(page), adminButton);
 
+    g_signal_connect(G_OBJECT(studiantButton), "clicked",
+                     G_CALLBACK(select_tab), notebook);
+
     return page;
 }
 
@@ -44,50 +70,73 @@ GtkWidget *create_welcome_page()
 
 GtkWidget *create_form_page()
 {
-
     GtkWidget *page = gtk_vbox_new(FALSE, 5);
 
     // Informations personnelles
     GtkWidget *infoFrame = gtk_frame_new("Informations personelles");
     gtk_container_add(GTK_CONTAINER(page), infoFrame);
-    GtkWidget *infoFrameTable = gtk_table_new(4, 2, FALSE);
-    gtk_container_set_border_width (GTK_CONTAINER (infoFrameTable), 10);
-    gtk_container_add(GTK_CONTAINER(infoFrame), infoFrameTable);
+    GtkWidget *infoTable = gtk_table_new(4, 2, FALSE);
+    gtk_container_set_border_width (GTK_CONTAINER (infoTable), 10);
+    gtk_container_add(GTK_CONTAINER(infoFrame), infoTable);
 
     GtkWidget *nom = gtk_entry_new();
     GtkWidget *prenom = gtk_entry_new();
     GtkWidget *cin = gtk_entry_new();
     GtkWidget *cne = gtk_entry_new();
 
-    attach(infoFrameTable, gtk_label_new("Nom"), 0, 1, 0, 1);
-    attach(infoFrameTable, nom, 1, 2, 0, 1);
-    attach(infoFrameTable, gtk_label_new("Prénom"), 0, 1, 1, 2);
-    attach(infoFrameTable, prenom, 1, 2, 1, 2);
-    attach(infoFrameTable, gtk_label_new("CIN"), 0, 1, 2, 3);
-    attach(infoFrameTable, cin, 1, 2, 2, 3);
-    attach(infoFrameTable, gtk_label_new("CNE"), 0, 1, 3, 4);
-    attach(infoFrameTable, cne, 1, 2, 3, 4);
+    attach(infoTable, gtk_label_new("Nom"), 0, 1, 0, 1);
+    attach(infoTable, nom, 1, 2, 0, 1);
+    attach(infoTable, gtk_label_new("Prénom"), 0, 1, 1, 2);
+    attach(infoTable, prenom, 1, 2, 1, 2);
+    attach(infoTable, gtk_label_new("CIN"), 0, 1, 2, 3);
+    attach(infoTable, cin, 1, 2, 2, 3);
+    attach(infoTable, gtk_label_new("CNE"), 0, 1, 3, 4);
+    attach(infoTable, cne, 1, 2, 3, 4);
 
-    GtkWidget *notes[6];
-    int i;
-    for(i=0; i < 6; ++i) notes[i] = gtk_entry_new();
+    // Diplome
+    GtkWidget *diplomeFrame = gtk_frame_new("Diplome");
+    gtk_container_add(GTK_CONTAINER(page), diplomeFrame);
+    GtkWidget *diplomeTable = gtk_table_new(10, 2, FALSE);
+    gtk_container_set_border_width (GTK_CONTAINER(diplomeTable), 10);
+    gtk_container_add(GTK_CONTAINER(diplomeFrame), diplomeTable);
 
     GtkWidget *diplome = gtk_combo_box_new_text();
-    gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), "DUT");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), "DEUG");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), "DEUST");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), "LICENCE");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), "MAITRISE");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), "MASTER");
-    gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), "CPGE");
+    char *nomDiplomes[10] = {"DUT", "DEUG", "DEUST", "Licence", "Maitrise",
+                          "Master", "CPGE"};
+    int i;
+    for(i = 0; i < 6; ++i)
+        gtk_combo_box_append_text(GTK_COMBO_BOX(diplome), nomDiplomes[i]);
+    gtk_combo_box_set_active(GTK_COMBO_BOX(diplome), 0);
+
+    GtkWidget *notes[6];
+    for(i=0; i < 6; ++i) notes[i] = gtk_entry_new();
 
     GtkWidget *etab = gtk_entry_new();
-
-    GtkWidget *nombreAns = gtk_spinner_new();
-
+    GtkWidget *nombreAns = gtk_entry_new();
     GtkWidget *anDiplome = gtk_entry_new();
 
-    return page;
+    attach(diplomeTable, gtk_label_new("Diplome"), 0, 1, 0, 1);
+    attach(diplomeTable, gtk_label_new("Note 1"), 0, 1, 1, 2);
+    attach(diplomeTable, gtk_label_new("Note 2"), 0, 1, 2, 3);
+    attach(diplomeTable, gtk_label_new("Note 3"), 0, 1, 3, 4);
+    attach(diplomeTable, gtk_label_new("Note 4"), 0, 1, 4, 5);
+    attach(diplomeTable, gtk_label_new("Note 5"), 0, 1, 5, 6);
+    attach(diplomeTable, gtk_label_new("Note 6"), 0, 1, 6, 7);
+    attach(diplomeTable, gtk_label_new("Etablissement"), 0, 1, 7, 8);
+    attach(diplomeTable, gtk_label_new("nomrbre d'années"), 0, 1, 8, 9);
+    attach(diplomeTable, gtk_label_new("Année d'obtention"), 0, 1, 9, 10);
+
+    attach(diplomeTable, diplome, 1, 2, 0, 1);
+    for(i = 0; i < 6; ++i)
+        attach(diplomeTable, notes[i], 1, 2, 1 + i, 2 + i);
+    attach(diplomeTable, etab, 1, 2, 7, 8);
+    attach(diplomeTable, nombreAns, 1, 2, 8, 9);
+    attach(diplomeTable, anDiplome, 1, 2, 9, 10);
+
+    GtkWidget *scrollarea = gtk_scrolled_window_new(NULL, NULL);
+    gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrollarea),
+                                          page);
+    return scrollarea;
 }
 
 int main( int argc, char *argv[])
@@ -113,7 +162,7 @@ int main( int argc, char *argv[])
     GtkWidget *notebook = notebook_create();
     gtk_container_add(GTK_CONTAINER(windowBox), notebook);
 
-    GtkWidget *welcomePage = create_welcome_page();
+    GtkWidget *welcomePage = create_welcome_page(notebook);
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), welcomePage, NULL);
 
     GtkWidget *formPage = create_form_page();
@@ -122,6 +171,8 @@ int main( int argc, char *argv[])
     // Connections des signaux
     g_signal_connect_swapped(G_OBJECT(window), "destroy",
                              G_CALLBACK(gtk_main_quit), NULL);
+    g_signal_connect(G_OBJECT(home), "clicked", G_CALLBACK(go_home),
+                     notebook);
 
     // Affichage de la fenetre
     gtk_widget_show_all(window);
