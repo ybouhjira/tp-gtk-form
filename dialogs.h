@@ -40,7 +40,6 @@ SignUp open_sign_up_dialog(GtkWindow *parent)
     table_attach(table, passwordLabel, 0, 1, 1, 2);
     table_attach(table, confirmLabel, 0, 1, 2, 3);
 
-
     // Ajout de la table dans la fenetre dialog
     gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG (dialog)->vbox), table);
 

@@ -24,6 +24,5 @@ HEADERS += \
     callbacks.h \
     mainwindow.h \
     addstudent.h \
-    login_form.h \
-    signup_form.h \
-    helpers.h
+    helpers.h \
+    dialogs.h

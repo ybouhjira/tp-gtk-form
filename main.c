@@ -4,7 +4,7 @@
 #include "addstudent.h"
 #include "callbacks.h"
 #include "mainwindow.h"
-#include "signup_form.h"
+#include "dialogs.h"
 
 int main( int argc, char *argv[])
 {
