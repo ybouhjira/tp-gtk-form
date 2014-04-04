@@ -19,3 +19,10 @@ unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += gtk+-2.0
 
 QMAKE_CFLAGS += -Wno-unused-parameter
+
+HEADERS += \
+    callbacks.h \
+    mainwindow.h \
+    addstudent.h \
+    login_form.h \
+    signup_form.h
