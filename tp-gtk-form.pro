@@ -25,4 +25,5 @@ HEADERS += \
     mainwindow.h \
     addstudent.h \
     login_form.h \
-    signup_form.h
+    signup_form.h \
+    helpers.h
