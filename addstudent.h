@@ -3,6 +3,8 @@
 
 #include <gtk/gtk.h>
 
+#include "helpers.h"
+
 #define NOMBRE_NOTES 8
 
 GtkWidget *create_student_page()
@@ -21,18 +23,15 @@ GtkWidget *create_student_page()
     GtkWidget *cin = gtk_entry_new();
     GtkWidget *cne = gtk_entry_new();
 
-#define attach(table, widget, left, right, top, bottom) \
-    gtk_table_attach(GTK_TABLE(table), widget, left, right, top, bottom, \
-     GTK_SHRINK, GTK_SHRINK, 5, 1)
 
-    attach(infoTable, gtk_label_new("Nom"), 0, 1, 0, 1);
-    attach(infoTable, nom, 1, 2, 0, 1);
-    attach(infoTable, gtk_label_new("Prénom"), 0, 1, 1, 2);
-    attach(infoTable, prenom, 1, 2, 1, 2);
-    attach(infoTable, gtk_label_new("CIN"), 0, 1, 2, 3);
-    attach(infoTable, cin, 1, 2, 2, 3);
-    attach(infoTable, gtk_label_new("CNE"), 0, 1, 3, 4);
-    attach(infoTable, cne, 1, 2, 3, 4);
+    table_attach(infoTable, gtk_label_new("Nom"), 0, 1, 0, 1);
+    table_attach(infoTable, nom, 1, 2, 0, 1);
+    table_attach(infoTable, gtk_label_new("Prénom"), 0, 1, 1, 2);
+    table_attach(infoTable, prenom, 1, 2, 1, 2);
+    table_attach(infoTable, gtk_label_new("CIN"), 0, 1, 2, 3);
+    table_attach(infoTable, cin, 1, 2, 2, 3);
+    table_attach(infoTable, gtk_label_new("CNE"), 0, 1, 3, 4);
+    table_attach(infoTable, cne, 1, 2, 3, 4);
 
     // Diplome
     GtkWidget *diplomeFrame = gtk_frame_new("Diplome");
@@ -57,27 +56,27 @@ GtkWidget *create_student_page()
     GtkWidget *nombreAns = gtk_entry_new();
     GtkWidget *anDiplome = gtk_entry_new();
 
-    attach(diplomeTable, gtk_label_new("Diplome"), 0, 1, 0, 1);
+    table_attach(diplomeTable, gtk_label_new("Diplome"), 0, 1, 0, 1);
 
-    attach(diplomeTable, gtk_label_new("Note 1"), 0, 1, 1, 2);
-    attach(diplomeTable, gtk_label_new("Note 2"), 0, 1, 2, 3);
-    attach(diplomeTable, gtk_label_new("Note 3"), 0, 1, 3, 4);
-    attach(diplomeTable, gtk_label_new("Note 4"), 0, 1, 4, 5);
-    attach(diplomeTable, gtk_label_new("Note 5"), 0, 1, 5, 6);
-    attach(diplomeTable, gtk_label_new("Note 6"), 0, 1, 6, 7);
-    attach(diplomeTable, gtk_label_new("Note 7"), 0, 1, 7, 8);
-    attach(diplomeTable, gtk_label_new("Note 8"), 0, 1, 8, 9);
+    table_attach(diplomeTable, gtk_label_new("Note 1"), 0, 1, 1, 2);
+    table_attach(diplomeTable, gtk_label_new("Note 2"), 0, 1, 2, 3);
+    table_attach(diplomeTable, gtk_label_new("Note 3"), 0, 1, 3, 4);
+    table_attach(diplomeTable, gtk_label_new("Note 4"), 0, 1, 4, 5);
+    table_attach(diplomeTable, gtk_label_new("Note 5"), 0, 1, 5, 6);
+    table_attach(diplomeTable, gtk_label_new("Note 6"), 0, 1, 6, 7);
+    table_attach(diplomeTable, gtk_label_new("Note 7"), 0, 1, 7, 8);
+    table_attach(diplomeTable, gtk_label_new("Note 8"), 0, 1, 8, 9);
 
-    attach(diplomeTable, gtk_label_new("Etablissement"), 0, 1, 9, 10);
-    attach(diplomeTable, gtk_label_new("nomrbre d'années"), 0, 1, 10, 11);
-    attach(diplomeTable, gtk_label_new("Année d'obtention"), 0, 1, 11, 12);
+    table_attach(diplomeTable, gtk_label_new("Etablissement"), 0, 1, 9, 10);
+    table_attach(diplomeTable, gtk_label_new("nomrbre d'années"), 0, 1, 10, 11);
+    table_attach(diplomeTable, gtk_label_new("Année d'obtention"), 0, 1, 11, 12);
 
-    attach(diplomeTable, diplome, 1, 2, 0, 1);
+    table_attach(diplomeTable, diplome, 1, 2, 0, 1);
     for(i = 0; i < NOMBRE_NOTES; ++i)
-        attach(diplomeTable, notes[i], 1, 2, 1 + i, 2 + i);
-    attach(diplomeTable, etab, 1, 2, 9, 10);
-    attach(diplomeTable, nombreAns, 1, 2, 10, 11);
-    attach(diplomeTable, anDiplome, 1, 2, 11, 12);
+        table_attach(diplomeTable, notes[i], 1, 2, 1 + i, 2 + i);
+    table_attach(diplomeTable, etab, 1, 2, 9, 10);
+    table_attach(diplomeTable, nombreAns, 1, 2, 10, 11);
+    table_attach(diplomeTable, anDiplome, 1, 2, 11, 12);
 
     // Bouton OK
     GtkWidget *ok = gtk_button_new_with_label("OK");

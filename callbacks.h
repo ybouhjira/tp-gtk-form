@@ -8,8 +8,12 @@ void select_tab(GtkWidget *btn, void *data)
     const char *text = gtk_button_get_label(GTK_BUTTON(btn));
 
     GtkWidget *notebook = (GtkWidget*) data;
-    if(strcmp(text, "Eudiant"))
+
+    printf("%s\n", text);
+    if(strcmp(text, "Inscription") == 0)
         gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), 1);
+    else if(strcmp(text, "Résultats") == 0)
+        gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), 2);
     else
         gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), 0);
 }

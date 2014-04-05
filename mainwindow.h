@@ -36,7 +36,7 @@ GtkWidget *create_welcome_page(GtkWidget *notebook)
     GtkWidget *addButton = gtk_button_new_with_mnemonic("Inscription");
     GtkWidget *editButton = gtk_button_new_with_mnemonic("Modification");
     GtkWidget *adminButton = gtk_button_new_with_mnemonic("Administrateur");
-    GtkWidget *resultButton = gtk_button_new_with_mnemonic("Resultat");
+    GtkWidget *resultButton = gtk_button_new_with_mnemonic("Résultats");
 
     gtk_box_pack_start(GTK_BOX(page), addButton, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(page), editButton, FALSE, FALSE, 5);
@@ -44,6 +44,8 @@ GtkWidget *create_welcome_page(GtkWidget *notebook)
     gtk_box_pack_start(GTK_BOX(page), resultButton, FALSE, FALSE, 5);
 
     g_signal_connect(G_OBJECT(addButton), "clicked",
+                     G_CALLBACK(select_tab), notebook);
+    g_signal_connect(G_OBJECT(resultButton), "clicked",
                      G_CALLBACK(select_tab), notebook);
 
     return page;

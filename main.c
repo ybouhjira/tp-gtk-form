@@ -5,12 +5,12 @@
 #include "callbacks.h"
 #include "mainwindow.h"
 #include "dialogs.h"
+#include "results.h"
 
 int main( int argc, char *argv[])
 {
     gtk_init(&argc, &argv);
 
-    open_sign_up_dialog(NULL);
     // Fenetre
     GtkWidget *window = create_window();
 
@@ -35,6 +35,9 @@ int main( int argc, char *argv[])
 
     GtkWidget *formPage = create_student_page();
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), formPage, NULL);
+
+    GtkWidget *resultPage = create_result_page();
+    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), resultPage, NULL);
 
     // Connections des signaux
     g_signal_connect_swapped(G_OBJECT(window), "destroy",

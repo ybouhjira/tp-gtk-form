@@ -25,4 +25,6 @@ HEADERS += \
     mainwindow.h \
     addstudent.h \
     helpers.h \
-    dialogs.h
+    dialogs.h \
+    results.h \
+    etudiants.h
