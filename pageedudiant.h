@@ -23,7 +23,7 @@ typedef struct PageEtudiant
     GtkWidget *diplomeFrame;
     GtkWidget *diplomeTable;
 
-    GtkWidget *diplome, *notes[NOMBRE_NOTES], *etab, *nbrAns, *anDiplome;
+    GtkWidget *diplome, *notes[NOMBRE_NOTES], *notesLabels[NOMBRE_NOTES], *etab, *nbrAns, *anDiplome;
 
 } PageEtudiant;
 

@@ -55,28 +55,36 @@ void create_student_page()
 
     table_attach(pageEtudiant.diplomeTable, gtk_label_new("Diplome"), 0, 1, 0, 1);
 
-    for (i = 0; i < NOMBRE_NOTES; ++i) {
-        char label[100];
-        sprintf(label, "Note %d", 1 + i);
-        table_attach(pageEtudiant.diplomeTable, gtk_label_new(label), 0, 1,
-                     1 + i, 2 + i);
+    for (i = 0; i < NOMBRE_NOTES; ++i)
+    {
+        char labelText[100];
+        sprintf(labelText, "Note %d\n", 1 + i);
+        pageEtudiant.notesLabels[i] = gtk_label_new(labelText);
+        table_attach(pageEtudiant.diplomeTable, pageEtudiant.notesLabels[i],
+                     0, 1, 1 + i, 2 + i);
     }
 
-    table_attach(pageEtudiant.diplomeTable, gtk_label_new("Etablissement"), 0, 1, 9, 10);
-    table_attach(pageEtudiant.diplomeTable, gtk_label_new("nomrbre d'années"), 0, 1, 10, 11);
-    table_attach(pageEtudiant.diplomeTable, gtk_label_new("Année d'obtention"), 0, 1, 11, 12);
+    table_attach(pageEtudiant.diplomeTable, gtk_label_new("Etablissement"),
+                 0, 1, 9, 10);
+    table_attach(pageEtudiant.diplomeTable, gtk_label_new("nomrbre d'années"),
+                 0, 1, 10, 11);
+    table_attach(pageEtudiant.diplomeTable, gtk_label_new("Année d'obtention"),
+                 0, 1, 11, 12);
 
     table_attach(pageEtudiant.diplomeTable, pageEtudiant.diplome, 1, 2, 0, 1);
     for(i = 0; i < NOMBRE_NOTES; ++i)
-        table_attach(pageEtudiant.diplomeTable, pageEtudiant.notes[i], 1, 2, 1 + i, 2 + i);
-    table_attach(pageEtudiant.diplomeTable, pageEtudiant.etab, 1, 2, 9, 10);
-    table_attach(pageEtudiant.diplomeTable, pageEtudiant.nbrAns, 1, 2, 10, 11);
-    table_attach(pageEtudiant.diplomeTable, pageEtudiant.anDiplome, 1, 2, 11, 12);
+        table_attach(pageEtudiant.diplomeTable, pageEtudiant.notes[i],
+                     1, 2, 1 + i, 2 + i);
+    table_attach(pageEtudiant.diplomeTable, pageEtudiant.etab,
+                 1, 2, 9, 10);
+    table_attach(pageEtudiant.diplomeTable, pageEtudiant.nbrAns,
+                 1, 2, 10, 11);
+    table_attach(pageEtudiant.diplomeTable, pageEtudiant.anDiplome,
+                 1, 2, 11, 12);
 
     // Bouton OK
     GtkWidget *ok = gtk_button_new_with_label("OK");
     gtk_container_add(GTK_CONTAINER(pageEtudiant.layout), ok);
-
 
     GtkWidget *scrollarea = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrollarea),
@@ -87,5 +95,4 @@ void create_student_page()
     // SIGNALS
     g_signal_connect(G_OBJECT(pageEtudiant.diplome), "changed",
                      G_CALLBACK(hide_notes), NULL);
-
 }

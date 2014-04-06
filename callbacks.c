@@ -50,9 +50,20 @@ void hide_notes(GtkWidget *menu)
     int nombreNotes = nombre_notes_diplome((Diplome) active), i;
 
     for(i = 0; i < nombreNotes; ++i)
+    {
         gtk_widget_set_visible(pageEtudiant.notes[i], TRUE);
+        gtk_widget_set_visible(pageEtudiant.notesLabels[i], TRUE);
+    }
 
     for(i = nombreNotes; i < 8; ++i)
+    {
         gtk_widget_set_visible(pageEtudiant.notes[i], FALSE);
+        gtk_widget_set_visible(pageEtudiant.notesLabels[i], FALSE);
+    }
+
+    if(active == CPGE)
+        gtk_label_set_text(GTK_LABEL(pageEtudiant.notesLabels[0]), "Classement");
+    else
+        gtk_label_set_text(GTK_LABEL(pageEtudiant.notesLabels[0]), "Note 1");
 
 }
