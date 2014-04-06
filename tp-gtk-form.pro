@@ -3,7 +3,13 @@ CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
 
-SOURCES += main.c
+SOURCES += main.c \
+    pageetudiant.c \
+    callbacks.c \
+    dialogs.c \
+    mainwindow.c \
+    etudiants.c \
+    file.c
 
 INCLUDEPATH += /usr/include/gtk-2.0 \
 /usr/include/glib-2.0 \
@@ -23,9 +29,9 @@ QMAKE_CFLAGS += -Wno-unused-parameter
 HEADERS += \
     callbacks.h \
     mainwindow.h \
-    addstudent.h \
     helpers.h \
     dialogs.h \
     results.h \
     etudiants.h \
-    file.h
+    file.h \
+    pageedudiant.h

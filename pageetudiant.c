@@ -1,39 +1,8 @@
-#ifndef ADDSTUDENT_H
-#define ADDSTUDENT_H
 
-#include <gtk/gtk.h>
-#include <assert.h>
+#include "pageedudiant.h"
 
-#include "helpers.h"
-
-#define NOMBRE_NOTES 8
-
-typedef struct
-{
-    GtkWidget *layout;
-
-    // Informations personnelles
-    GtkWidget *infoFrame;
-    GtkWidget *infoTable;
-
-    GtkWidget *cne, *nom, *prenom, *cin;
-
-    // Diplome
-    GtkWidget *diplomeFrame;
-    GtkWidget *diplomeTable;
-
-    GtkWidget *diplome, *notes[8], *etab, *nbrAns, *anDiplome;
-
-} PageEtudiant;
 PageEtudiant pageEtudiant;
 
-/**
- * Entrees:
- *  etudiant : une a modifier  (cne = NULL)
- *  cne : cne de l'étudiant  (etudiant = NULL)
- * Description :
- *  Retourne le formulaire d'inscription/modification d'un étudiant
- */
 void create_student_page()
 {
     pageEtudiant.layout = gtk_vbox_new(FALSE, 5);
@@ -86,14 +55,12 @@ void create_student_page()
 
     table_attach(pageEtudiant.diplomeTable, gtk_label_new("Diplome"), 0, 1, 0, 1);
 
-    table_attach(pageEtudiant.diplomeTable, gtk_label_new("Note 1"), 0, 1, 1, 2);
-    table_attach(pageEtudiant.diplomeTable, gtk_label_new("Note 2"), 0, 1, 2, 3);
-    table_attach(pageEtudiant.diplomeTable, gtk_label_new("Note 3"), 0, 1, 3, 4);
-    table_attach(pageEtudiant.diplomeTable, gtk_label_new("Note 4"), 0, 1, 4, 5);
-    table_attach(pageEtudiant.diplomeTable, gtk_label_new("Note 5"), 0, 1, 5, 6);
-    table_attach(pageEtudiant.diplomeTable, gtk_label_new("Note 6"), 0, 1, 6, 7);
-    table_attach(pageEtudiant.diplomeTable, gtk_label_new("Note 7"), 0, 1, 7, 8);
-    table_attach(pageEtudiant.diplomeTable, gtk_label_new("Note 8"), 0, 1, 8, 9);
+    for (i = 0; i < NOMBRE_NOTES; ++i) {
+        char label[100];
+        sprintf(label, "Note %d", 1 + i);
+        table_attach(pageEtudiant.diplomeTable, gtk_label_new(label), 0, 1,
+                     1 + i, 2 + i);
+    }
 
     table_attach(pageEtudiant.diplomeTable, gtk_label_new("Etablissement"), 0, 1, 9, 10);
     table_attach(pageEtudiant.diplomeTable, gtk_label_new("nomrbre d'années"), 0, 1, 10, 11);
@@ -117,6 +84,8 @@ void create_student_page()
 
     pageEtudiant.layout = scrollarea;
 
-}
+    // SIGNALS
+    g_signal_connect(G_OBJECT(pageEtudiant.diplome), "changed",
+                     G_CALLBACK(hide_notes), NULL);
 
-#endif // ADDSTUDENT_H
+}

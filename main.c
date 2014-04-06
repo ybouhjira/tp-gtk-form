@@ -1,7 +1,7 @@
 #include <gtk/gtk.h>
 #include <string.h>
 
-#include "addstudent.h"
+#include "pageedudiant.h"
 #include "callbacks.h"
 #include "mainwindow.h"
 #include "dialogs.h"

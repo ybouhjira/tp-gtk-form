@@ -1,14 +1,13 @@
 #ifndef ETUDIANTS_H
 #define ETUDIANTS_H
 
-#include <string.h>
-
 typedef enum {DUT, DEUG, DEUST, LICENCE, MAITRISE, MASTER, CPGE} Diplome;
 
 /**
   * Structure Etudiant
   */
-typedef struct Etudiant{
+typedef struct Etudiant
+{
     char nom[20];
     char prenom[20];
 
@@ -33,45 +32,15 @@ typedef struct ListeEtudiants
     struct ListeEtudiants *next;
 } ListeEtudiants;
 
-///// FONCTIONS Etudiants
-
 Etudiant etudiant_creer(char *nom, char *prenom, char *motDePasse,
                         char *cin,  char *cne,
-                        char *etab, int anDiplome, int nbreAns,
-                        Diplome diplome, float notes[8])
-{
-    Etudiant etud;
+                        char *etab, int anDiplome, int nbrAns,
+                        Diplome diplome, float notes[8]);
 
-    strcpy(etud.nom, nom);
-    strcpy(etud.prenom, prenom);
-    strcpy(etud.motDePasse, motDePasse);
+int nombre_notes_diplome(Diplome dip);
 
-    strcpy(etud.cin,cin);
-    strcpy(etud.cne,cne);
+Diplome convertir_diplome(const char* diplome);
 
-    strcpy(etud.etab, etab);
-
-    etud.anDiplome = anDiplome;
-    etud.nbreAns = nbreAns;
-    etud.diplome = diplome;
-
-    memcpy(etud.notes, notes, sizeof(float) * 8);
-
-    return etud;
-}
-
-int nombre_notes_diplome(Diplome dip)
-{
-    switch (dip) {
-    case CPGE: return 1;
-    case DUT:
-    case DEUST:
-        return 4;
-    case LICENCE:
-        return 6;
-    case MAIRISE:
-        return 8;
-    }
-}
+const char* diplome_to_char(Diplome diplome);
 
 #endif // ETUDIANTS_H
