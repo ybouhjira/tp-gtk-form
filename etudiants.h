@@ -60,4 +60,18 @@ Etudiant etudiant_creer(char *nom, char *prenom, char *motDePasse,
     return etud;
 }
 
+int nombre_notes_diplome(Diplome dip)
+{
+    switch (dip) {
+    case CPGE: return 1;
+    case DUT:
+    case DEUST:
+        return 4;
+    case LICENCE:
+        return 6;
+    case MAIRISE:
+        return 8;
+    }
+}
+
 #endif // ETUDIANTS_H

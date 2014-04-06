@@ -27,4 +27,5 @@ HEADERS += \
     helpers.h \
     dialogs.h \
     results.h \
-    etudiants.h
+    etudiants.h \
+    file.h
