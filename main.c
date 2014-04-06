@@ -33,8 +33,8 @@ int main( int argc, char *argv[])
     GtkWidget *welcomePage = create_welcome_page(notebook);
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), welcomePage, NULL);
 
-    GtkWidget *formPage = create_student_page();
-    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), formPage, NULL);
+    create_student_page();
+    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), pageEtudiant.layout, NULL);
 
     GtkWidget *resultPage = create_result_page();
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), resultPage, NULL);

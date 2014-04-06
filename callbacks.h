@@ -3,6 +3,9 @@
 
 #include <gtk/gtk.h>
 
+#include "dialogs.h"
+#include <addstudent.h>
+
 void select_tab(GtkWidget *btn, void *data)
 {
     const char *text = gtk_button_get_label(GTK_BUTTON(btn));
@@ -22,6 +25,21 @@ void go_home(GtkWidget *widget, void* data)
 {
     GtkWidget *notebook = (GtkWidget*) data;
     gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), 0);
+}
+
+void inscrire_etudiant(GtkWidget *boutonInscription, void *notebook)
+{
+    GtkNotebook *gtkNoteBook = (GtkNotebook*) notebook;
+
+    SignUp signup = open_sign_up_dialog(GTK_WINDOW(
+                gtk_widget_get_toplevel(boutonInscription)));
+
+    // Si l'utilisateur a cliquer sur OK et le formulaire est valide
+    if(strlen(signup.cne) > 0)
+    {
+        gtk_notebook_set_current_page(gtkNoteBook, 1);
+        gtk_entry_set_text(GTK_ENTRY(pageEtudiant.cne), signup.cne);
+    }
 }
 
 //void hide_notes(GtkWidget *menu, void *data)

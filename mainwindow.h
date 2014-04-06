@@ -44,7 +44,7 @@ GtkWidget *create_welcome_page(GtkWidget *notebook)
     gtk_box_pack_start(GTK_BOX(page), resultButton, FALSE, FALSE, 5);
 
     g_signal_connect(G_OBJECT(addButton), "clicked",
-                     G_CALLBACK(select_tab), notebook);
+                     G_CALLBACK(inscrire_etudiant), notebook);
     g_signal_connect(G_OBJECT(resultButton), "clicked",
                      G_CALLBACK(select_tab), notebook);
 
