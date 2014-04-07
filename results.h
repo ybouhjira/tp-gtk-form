@@ -23,4 +23,6 @@ void remplire_vue_tous();
 
 void remplire_vue_rejete();
 
+void remplire_vue_accepte();
+
 #endif // RESULTS_H

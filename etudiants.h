@@ -54,4 +54,6 @@ gboolean etudiant_egaux(const void *etud1, const void *etud2);
 
 void etudiant_detruire(void *etud);
 
+int etudiant_compare(gconstpointer etud1, gconstpointer etud2);
+
 #endif // ETUDIANTS_H

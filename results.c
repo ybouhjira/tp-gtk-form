@@ -4,6 +4,12 @@
 
 PageResult pageResult;
 
+#define NOMBRE_ETUDIANTS_ACCEPTES 30;
+
+#define POURCENTAGE_CPGE 0.3
+#define POURCENTAGE_DUT 0.5
+#define POURCENTAGE_LICENCE 0.2
+
 void create_result_page()
 {
     pageResult.notebook = gtk_notebook_new();
@@ -70,13 +76,11 @@ void add_to_list(GtkWidget *list, Etudiant *etudiant)
 
 void add_to_store(gpointer key, gpointer value, gpointer data)
 {
-    printf("add_to_store\n");
     add_to_list((GtkWidget*)data, (Etudiant*)value);
 }
 
 void add_to_store_rejete(gpointer key, gpointer value, gpointer data)
 {
-    printf("add_to_store\n");
     Etudiant *etud = (Etudiant*) value;
     if(etudiant_est_rejete(etud))
     {
@@ -111,4 +115,44 @@ void remplire_vue_rejete()
     g_hash_table_foreach(tableDut, add_to_store_rejete, pageResult.vueRejete);
     g_hash_table_foreach(tableLicence, add_to_store_rejete,
                          pageResult.vueRejete);
+}
+
+void ajouter_dans_liste(gpointer key, gpointer value, gpointer data)
+{
+    GList **list = (GList**) data;
+    if(!etudiant_est_rejete((Etudiant*)value))
+        *list = g_list_insert_sorted(*list, value, etudiant_compare);
+}
+
+void remplire_vue_accepte()
+{
+    init_list(pageResult.vueAcept);
+
+    GtkListStore *store = GTK_LIST_STORE(gtk_tree_view_get_model
+                           (GTK_TREE_VIEW(pageResult.vueAcept)));
+
+    gtk_list_store_clear(store);
+
+    GList *listCpge = NULL, *listDut = NULL, *listLicence = NULL;
+
+    g_hash_table_foreach(tableCpge, ajouter_dans_liste, &listCpge);
+    g_hash_table_foreach(tableDut, ajouter_dans_liste, &listDut);
+    g_hash_table_foreach(tableLicence, ajouter_dans_liste, &listLicence);
+
+    int nbrCpge = 6;
+    int nbrDut = 20;
+    int nbrLicence = 10;
+
+    int i;
+    GList *courant = listDut;
+    for(i = 0; courant && i < nbrDut; courant = courant->next)
+        add_to_list(pageResult.vueAcept, (Etudiant*)courant->data);
+
+    courant = listCpge;
+    for(i = 0; courant && i < nbrCpge; courant = courant->next)
+        add_to_list(pageResult.vueAcept, (Etudiant*)courant->data);
+
+    courant = listLicence;
+    for(i = 0; courant && i < nbrLicence; courant = courant->next)
+        add_to_list(pageResult.vueAcept, (Etudiant*)courant->data);
 }

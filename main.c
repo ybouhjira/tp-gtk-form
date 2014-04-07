@@ -52,6 +52,7 @@ int main( int argc, char *argv[])
     // Lire les listes d'étudiants
     lire_fichiers_etudiants(GTK_WINDOW(window));
 
+    remplire_vue_accepte();
     remplire_vue_tous();
     remplire_vue_rejete();
 

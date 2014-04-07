@@ -102,8 +102,6 @@ float moy_etud(Etudiant etud)
 
 gboolean etudiant_est_rejete(Etudiant *etud)
 {
-    printf("moy : %f\n", moy_etud(*etud));
-
     if(moy_etud(*etud) < 12) return TRUE;
 
     if(etud->diplome == DUT && etud->nbrAns > 2 )
@@ -119,3 +117,15 @@ gboolean etudiant_est_rejete(Etudiant *etud)
 
     return FALSE;
 }
+
+
+int etudiant_compare(gconstpointer etud1, gconstpointer etud2)
+{
+    float moy1 = moy_etud(*(Etudiant*)etud1);
+    float moy2 = moy_etud(*(Etudiant*)etud2);
+    if(moy1 == moy2) return 0;
+    else if(moy1 > moy2) return -1;
+    else return 1;
+}
+
+
