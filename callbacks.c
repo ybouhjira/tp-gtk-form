@@ -39,6 +39,9 @@ void inscrire_etudiant(GtkWidget *boutonInscription, void *notebook)
     {
         gtk_notebook_set_current_page(gtkNoteBook, 1);
         gtk_entry_set_text(GTK_ENTRY(pageEtudiant.cne), signup.cne);
+
+//        g_signal_connect(G_OBJECT(pageEtudiant.okButton), "clicked",
+//                         G_CALLBACK(ecrire_formulaire));
     }
 }
 
@@ -65,5 +68,4 @@ void hide_notes(GtkWidget *menu)
         gtk_label_set_text(GTK_LABEL(pageEtudiant.notesLabels[0]), "Classement");
     else
         gtk_label_set_text(GTK_LABEL(pageEtudiant.notesLabels[0]), "Note 1");
-
 }

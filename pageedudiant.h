@@ -7,7 +7,7 @@
 #include "helpers.h"
 #include "callbacks.h"
 
-#define NOMBRE_NOTES 8
+#define NOMBRE_NOTES 10
 
 typedef struct PageEtudiant
 {
@@ -23,7 +23,10 @@ typedef struct PageEtudiant
     GtkWidget *diplomeFrame;
     GtkWidget *diplomeTable;
 
-    GtkWidget *diplome, *notes[NOMBRE_NOTES], *notesLabels[NOMBRE_NOTES], *etab, *nbrAns, *anDiplome;
+    GtkWidget *diplome, *notes[NOMBRE_NOTES], *notesLabels[NOMBRE_NOTES],
+        *etab, *nbrAns, *anDiplome;
+
+    GtkWidget *okButton;
 
 } PageEtudiant;
 

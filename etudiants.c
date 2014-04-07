@@ -73,3 +73,9 @@ const char* diplome_to_char (Diplome diplome)
     }
     return "";
 }
+
+gboolean etudiant_egaux(const void *etud1, const void *etud2)
+{
+    Etudiant *etudiant1 = (Etudiant*) etud1, *etudiant2 = (Etudiant*) etud2;
+    return strcmp(etudiant1->cne, etudiant2->cne) == 0;
+}

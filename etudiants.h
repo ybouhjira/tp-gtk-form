@@ -1,6 +1,8 @@
 #ifndef ETUDIANTS_H
 #define ETUDIANTS_H
 
+#include <gtk/gtk.h>
+
 typedef enum {DUT, DEUG, DEUST, LICENCE, MAITRISE, MASTER, CPGE} Diplome;
 
 /**
@@ -43,4 +45,6 @@ Diplome convertir_diplome(const char* diplome);
 
 const char* diplome_to_char(Diplome diplome);
 
+
+gboolean etudiant_egaux(const void *etud1, const void *etud2);
 #endif // ETUDIANTS_H

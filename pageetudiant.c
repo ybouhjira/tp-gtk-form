@@ -45,7 +45,7 @@ void create_student_page()
     int i;
     for(i = 0; i < 7; ++i)
         gtk_combo_box_append_text(GTK_COMBO_BOX(pageEtudiant.diplome), dipls[i]);
-    gtk_combo_box_set_active(GTK_COMBO_BOX(pageEtudiant.diplome), 0);
+    gtk_combo_box_set_active(GTK_COMBO_BOX(pageEtudiant.diplome), 4);
 
     for(i=0; i < NOMBRE_NOTES; ++i) pageEtudiant.notes[i] = gtk_entry_new();
 
@@ -83,8 +83,10 @@ void create_student_page()
                  1, 2, 11, 12);
 
     // Bouton OK
-    GtkWidget *ok = gtk_button_new_with_label("OK");
-    gtk_container_add(GTK_CONTAINER(pageEtudiant.layout), ok);
+    pageEtudiant.okButton = gtk_button_new_with_label("OK");
+
+    gtk_box_pack_start(GTK_BOX(pageEtudiant.layout),
+                       pageEtudiant.okButton, FALSE, FALSE, 5);
 
     GtkWidget *scrollarea = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrollarea),

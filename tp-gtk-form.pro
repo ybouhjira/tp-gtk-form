@@ -9,7 +9,8 @@ SOURCES += main.c \
     dialogs.c \
     mainwindow.c \
     etudiants.c \
-    file.c
+    file.c \
+    hashtable.c
 
 INCLUDEPATH += /usr/include/gtk-2.0 \
 /usr/include/glib-2.0 \
@@ -34,4 +35,5 @@ HEADERS += \
     results.h \
     etudiants.h \
     file.h \
-    pageedudiant.h
+    pageedudiant.h \
+    hashtable.h

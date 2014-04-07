@@ -6,6 +6,7 @@
 #include "mainwindow.h"
 #include "dialogs.h"
 #include "results.h"
+#include "hashtable.h"
 
 int main( int argc, char *argv[])
 {
@@ -47,6 +48,10 @@ int main( int argc, char *argv[])
 
     // Affichage de la fenetre
     gtk_widget_show_all(window);
+
+    // Lire les listes d'étudiants
+    lire_fichiers_etudiants(GTK_WINDOW(window));
+
     gtk_main();
     return 0;
 }
