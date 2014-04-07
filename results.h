@@ -21,4 +21,6 @@ void add_to_list(GtkWidget *list, Etudiant *etudiant);
 
 void remplire_vue_tous();
 
+void remplire_vue_rejete();
+
 #endif // RESULTS_H

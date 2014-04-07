@@ -88,3 +88,34 @@ void etudiant_detruire(void* etudiant)
 {
   free(etudiant);
 }
+
+float moy_etud(Etudiant etud)
+{
+    float sum = 0;
+    int i, nbrNotes = nombre_notes_diplome(etud.diplome);
+    for (i = 0; i < nbrNotes; ++i)
+    {
+        sum += etud.notes[i];
+    }
+    return sum / nbrNotes;
+}
+
+gboolean etudiant_est_rejete(Etudiant *etud)
+{
+    printf("moy : %f\n", moy_etud(*etud));
+
+    if(moy_etud(*etud) < 12) return TRUE;
+
+    if(etud->diplome == DUT && etud->nbrAns > 2 )
+        return TRUE;
+
+    if(etud->diplome == LICENCE && etud->nbrAns > 3 )
+        return TRUE;
+
+    if(etud->diplome == MASTER && (etud->nbrAns > 2))
+        return TRUE;
+
+    // A finir
+
+    return FALSE;
+}

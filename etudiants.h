@@ -47,6 +47,8 @@ Diplome convertir_diplome(const char* diplome);
 
 const char* diplome_to_char(Diplome diplome);
 
+gboolean etudiant_est_rejete(Etudiant *etud);
+
 // Fonctions Utilisées avec GHashTables
 gboolean etudiant_egaux(const void *etud1, const void *etud2);
 

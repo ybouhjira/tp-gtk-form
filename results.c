@@ -1,5 +1,6 @@
 #include "results.h"
 #include "hashtable.h"
+#include "etudiants.h"
 
 PageResult pageResult;
 
@@ -73,6 +74,16 @@ void add_to_store(gpointer key, gpointer value, gpointer data)
     add_to_list((GtkWidget*)data, (Etudiant*)value);
 }
 
+void add_to_store_rejete(gpointer key, gpointer value, gpointer data)
+{
+    printf("add_to_store\n");
+    Etudiant *etud = (Etudiant*) value;
+    if(etudiant_est_rejete(etud))
+    {
+        add_to_list((GtkWidget*)data, etud);
+    }
+}
+
 void remplire_vue_tous()
 {
     init_list(pageResult.vueTous);
@@ -85,4 +96,19 @@ void remplire_vue_tous()
     g_hash_table_foreach(tableCpge, add_to_store, pageResult.vueTous);
     g_hash_table_foreach(tableDut, add_to_store, pageResult.vueTous);
     g_hash_table_foreach(tableLicence, add_to_store, pageResult.vueTous);
+}
+
+void remplire_vue_rejete()
+{
+    init_list(pageResult.vueRejete);
+
+    GtkListStore *store = GTK_LIST_STORE(gtk_tree_view_get_model
+                           (GTK_TREE_VIEW(pageResult.vueRejete)));
+
+    gtk_list_store_clear(store);
+
+    g_hash_table_foreach(tableCpge, add_to_store_rejete, pageResult.vueRejete);
+    g_hash_table_foreach(tableDut, add_to_store_rejete, pageResult.vueRejete);
+    g_hash_table_foreach(tableLicence, add_to_store_rejete,
+                         pageResult.vueRejete);
 }
