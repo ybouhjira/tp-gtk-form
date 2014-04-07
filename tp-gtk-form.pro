@@ -10,7 +10,8 @@ SOURCES += main.c \
     mainwindow.c \
     etudiants.c \
     file.c \
-    hashtable.c
+    hashtable.c \
+    results.c
 
 INCLUDEPATH += /usr/include/gtk-2.0 \
 /usr/include/glib-2.0 \

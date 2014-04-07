@@ -2,12 +2,17 @@
 #define RESULTS_H
 
 #include <gtk/gtk.h>
+#include "results.h"
 
-GtkWidget *create_result_page()
+typedef struct
 {
-    GtkWidget *treeView = gtk_tree_view_new();
+    GtkWidget *vueTous, *vueAcept, *vueRejete;
+    GtkWidget *notebook;
+}PageResult;
 
-    return treeView;
-}
+extern PageResult pageResult;
+
+void create_result_page();
+
 
 #endif // RESULTS_H

@@ -37,8 +37,8 @@ int main( int argc, char *argv[])
     create_student_page();
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), pageEtudiant.layout, NULL);
 
-    GtkWidget *resultPage = create_result_page();
-    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), resultPage, NULL);
+    create_result_page();
+    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), pageResult.notebook, NULL);
 
     // Connections des signaux
     g_signal_connect_swapped(G_OBJECT(window), "destroy",

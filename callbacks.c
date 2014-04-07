@@ -94,7 +94,6 @@ void inscrire_etudiant(GtkWidget *boutonInscription, void *notebook)
                     notes
                     );
 
-
         // Inserer l'etudiant
         g_hash_table_insert(table, etudiant->cne, etudiant);
     }
