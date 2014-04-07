@@ -63,4 +63,6 @@ void lire_fichiers_etudiants(GtkWindow *mainWindow)
             g_hash_table_insert(tableDut, g_strdup(courant->cne), courant);
         }
     }
+
+    for (i = 0; i < 7; ++i)  fclose(files[i]);
 }
