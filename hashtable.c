@@ -39,7 +39,8 @@ void lire_fichiers_etudiants(GtkWindow *mainWindow)
     while(fgetc(files[0]) != EOF) // CPGE
     {
         printf("test\n");
-        tableCpge = g_hash_table_new(g_str_hash, etudiant_egaux);
+        tableCpge = g_hash_table_new_full(g_str_hash, etudiant_egaux,
+                                          NULL, etudiant_detruire);
         Etudiant *courant = lire_etudiant(files[0]);
         g_hash_table_insert(tableCpge, g_strdup(courant->cne), courant);
     }
@@ -48,7 +49,8 @@ void lire_fichiers_etudiants(GtkWindow *mainWindow)
     {
         while(fgetc(files[0]) != EOF) // DUT DEUST DEUG
         {
-            tableDut = g_hash_table_new(g_str_hash, etudiant_egaux);
+            tableDut = g_hash_table_new_full(g_str_hash, etudiant_egaux,
+                                             NULL, etudiant_detruire);
             Etudiant *courant = lire_etudiant(files[i]);
             g_hash_table_insert(tableDut, g_strdup(courant->cne), courant);
         }
@@ -58,7 +60,8 @@ void lire_fichiers_etudiants(GtkWindow *mainWindow)
     {
         while(fgetc(files[0]) != EOF) // Licence master maitrise
         {
-            tableLicence = g_hash_table_new(g_str_hash, etudiant_egaux);
+            tableLicence = g_hash_table_new_full(g_str_hash, etudiant_egaux,
+                                                 NULL, etudiant_detruire);
             Etudiant *courant = lire_etudiant(files[i]);
             g_hash_table_insert(tableDut, g_strdup(courant->cne), courant);
         }

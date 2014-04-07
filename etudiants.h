@@ -34,9 +34,10 @@ typedef struct ListeEtudiants
     struct ListeEtudiants *next;
 } ListeEtudiants;
 
-Etudiant etudiant_creer(char *nom, char *prenom, char *motDePasse,
-                        char *cin,  char *cne,
-                        char *etab, int anDiplome, int nbrAns,
+Etudiant* etudiant_creer(const char *nom, const char *prenom,
+                         const char *motDePasse,
+                        const char *cin,  const char *cne,
+                        const char *etab, int anDiplome, int nbrAns,
                         Diplome diplome, float notes[8]);
 
 int nombre_notes_diplome(Diplome dip);
@@ -45,6 +46,9 @@ Diplome convertir_diplome(const char* diplome);
 
 const char* diplome_to_char(Diplome diplome);
 
-
+// Fonctions Utilisées avec GHashTables
 gboolean etudiant_egaux(const void *etud1, const void *etud2);
+
+void etudiant_detruire(void *etud);
+
 #endif // ETUDIANTS_H

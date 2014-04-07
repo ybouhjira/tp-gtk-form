@@ -1,27 +1,29 @@
 #include "etudiants.h"
 #include <string.h>
+#include <stdlib.h>
 
-Etudiant etudiant_creer(char *nom, char *prenom, char *motDePasse,
-                        char *cin,  char *cne,
-                        char *etab, int anDiplome, int nbrAns,
+Etudiant* etudiant_creer(const char *nom, const char *prenom,
+                         const char *motDePasse,
+                        const char *cin,  const char *cne,
+                        const char *etab, int anDiplome, int nbrAns,
                         Diplome diplome, float notes[8])
 {
-    Etudiant etud;
+    Etudiant *etud = calloc(1, sizeof(Etudiant));
 
-    strcpy(etud.nom, nom);
-    strcpy(etud.prenom, prenom);
-    strcpy(etud.motDePasse, motDePasse);
+    strcpy(etud->nom, nom);
+    strcpy(etud->prenom, prenom);
+    strcpy(etud->motDePasse, motDePasse);
 
-    strcpy(etud.cin,cin);
-    strcpy(etud.cne,cne);
+    strcpy(etud->cin,cin);
+    strcpy(etud->cne,cne);
 
-    strcpy(etud.etab, etab);
+    strcpy(etud->etab, etab);
 
-    etud.anDiplome = anDiplome;
-    etud.nbrAns = nbrAns;
-    etud.diplome = diplome;
+    etud->anDiplome = anDiplome;
+    etud->nbrAns = nbrAns;
+    etud->diplome = diplome;
 
-    memcpy(etud.notes, notes, sizeof(float) * 8);
+    memcpy(etud->notes, notes, sizeof(float) * 8);
 
     return etud;
 }
@@ -78,4 +80,9 @@ gboolean etudiant_egaux(const void *etud1, const void *etud2)
 {
     Etudiant *etudiant1 = (Etudiant*) etud1, *etudiant2 = (Etudiant*) etud2;
     return strcmp(etudiant1->cne, etudiant2->cne) == 0;
+}
+
+void etudiant_detruire(void* etudiant)
+{
+  free(etudiant);
 }
