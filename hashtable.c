@@ -22,10 +22,11 @@ void lire_fichiers_etudiants(GtkWindow *mainWindow)
 
     FILE *files[7];
     int i;
-    for (i = 0; i < 7; ++i) {
+    for (i = 0; i < 7; ++i)
+    {
         char filename[30];
         sprintf(filename, "%s.txt", diplomes[i]);
-        files[i] = fopen(filename, "w+");
+        files[i] = fopen(filename, "r+");
 
         if(!files[i])
         {
@@ -53,7 +54,7 @@ void lire_fichiers_etudiants(GtkWindow *mainWindow)
 
     for (i = 1; i <= 3; ++i)
     {
-        while(fgetc(files[0]) != EOF) // DUT DEUST DEUG
+        while(fgetc(files[i]) != EOF) // DUT DEUST DEUG
         {
 
             Etudiant *courant = lire_etudiant(files[i]);
@@ -63,7 +64,7 @@ void lire_fichiers_etudiants(GtkWindow *mainWindow)
 
     for (i = 4; i <= 6; ++i)
     {
-        while(fgetc(files[0]) != EOF) // Licence master maitrise
+        while(fgetc(files[i]) != EOF) // Licence master maitrise
         {
 
             Etudiant *courant = lire_etudiant(files[i]);
