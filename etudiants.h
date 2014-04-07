@@ -2,6 +2,7 @@
 #define ETUDIANTS_H
 
 #include <gtk/gtk.h>
+#include "pageedudiant.h"
 
 typedef enum {DUT, DEUG, DEUST, LICENCE, MAITRISE, MASTER, CPGE} Diplome;
 
@@ -16,7 +17,7 @@ typedef struct Etudiant
     char motDePasse[25];
     char cin[20];
     char cne[20];
-    float notes[8];
+    float notes[NOMBRE_NOTES];
 
     Diplome diplome;
 

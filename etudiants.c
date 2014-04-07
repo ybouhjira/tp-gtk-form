@@ -6,8 +6,9 @@ Etudiant* etudiant_creer(const char *nom, const char *prenom,
                          const char *motDePasse,
                         const char *cin,  const char *cne,
                         const char *etab, int anDiplome, int nbrAns,
-                        Diplome diplome, float notes[8])
+                        Diplome diplome, float notes[NOMBRE_NOTES])
 {
+
     Etudiant *etud = calloc(1, sizeof(Etudiant));
 
     strcpy(etud->nom, nom);
@@ -23,7 +24,8 @@ Etudiant* etudiant_creer(const char *nom, const char *prenom,
     etud->nbrAns = nbrAns;
     etud->diplome = diplome;
 
-    memcpy(etud->notes, notes, sizeof(float) * 8);
+
+    memcpy(etud->notes, notes, sizeof(float) * NOMBRE_NOTES);
 
     return etud;
 }

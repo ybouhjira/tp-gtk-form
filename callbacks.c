@@ -56,8 +56,7 @@ void inscrire_etudiant(GtkWidget *boutonInscription, void *notebook)
         }
 
         // voir si existe déja
-        if(g_hash_table_lookup(table, gtk_entry_get_text(
-                                   GTK_ENTRY(pageEtudiant.cne))))
+        if(g_hash_table_lookup(table, signup.cne))
         {
             GtkWidget *errorDialog = gtk_message_dialog_new (
                         GTK_WINDOW(gtk_widget_get_toplevel(gtkNoteBook)),
@@ -80,10 +79,11 @@ void inscrire_etudiant(GtkWidget *boutonInscription, void *notebook)
         for(i = 0; i <  NOMBRE_NOTES; ++i)
             notes[i] = atof(gtk_entry_get_text(GTK_ENTRY(pageEtudiant.notes[i])));
 
+
         Etudiant *etudiant = etudiant_creer(
                     gtk_entry_get_text(GTK_ENTRY(pageEtudiant.nom)),
                     gtk_entry_get_text(GTK_ENTRY(pageEtudiant.prenom)),
-                    gtk_entry_get_text(GTK_ENTRY(signup.password)),
+                    signup.password,
                     gtk_entry_get_text(GTK_ENTRY(pageEtudiant.cin)),
                     gtk_entry_get_text(GTK_ENTRY(pageEtudiant.cne)),
                     gtk_entry_get_text(GTK_ENTRY(pageEtudiant.etab)),
@@ -93,6 +93,7 @@ void inscrire_etudiant(GtkWidget *boutonInscription, void *notebook)
                                           GTK_COMBO_BOX(pageEtudiant.diplome))),
                     notes
                     );
+
 
         // Inserer l'etudiant
         g_hash_table_insert(table, etudiant->cne, etudiant);
